@@ -276,17 +276,20 @@
         </div>
         
         <div class="footer">
-            <span class="telegram-logo"></span> © 2025 Internet Hero & Freshir
+            <p>© 2025 Internet Hero & Freshir</p>
+            <a href="https://t.me/Internet_Hero_Official_Account" class="tg-channel" target="_blank">
+                <i class="fab fa-telegram-plane"></i> @Internet_Hero_Official_Account
+            </a>
         </div>
     </div>
 
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.enableClosingConfirmation();
-        
-        document.getElementById('go-button').addEventListener('click', function() {
-        tg.openTelegramLink('https://t.me/PivomerGame_bot/PivomerGame?startapp=_tgr_Q9si5jU5YTM6');
+   <script>
+    let tg = window.Telegram.WebApp;
+    tg.expand();
+    tg.enableClosingConfirmation();
+    
+    document.getElementById('go-button').addEventListener('click', function() {
+        tg.openTelegramLink('https://t.me/PivomerGame_bot?start=_tgr_Q9si5jU5YTM6');
         
         tg.showPopup({
             title: "Успешно!",
@@ -294,10 +297,10 @@
             buttons: [{type: "ok"}]
         });
     });
-        
-        tg.BackButton.onClick(() => {
-            tg.close();
-        });
-    </script>
+    
+    tg.BackButton.onClick(() => {
+        tg.close();
+    });
+</script>
 </body>
 </html>
