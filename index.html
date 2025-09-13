@@ -286,14 +286,14 @@
         tg.enableClosingConfirmation();
         
         document.getElementById('go-button').addEventListener('click', function() {
-            tg.openTelegramLink('https://t.me/PivomerGame_bot?start=_tgr_Q9si5jU5YTM6');
-            
-            tg.showPopup({
-                title: "Успешно!",
-                message: "Вы были перенаправлены в бота. Нажмите START для получения награды.",
-                buttons: [{type: "ok"}]
-            });
+        tg.openTelegramLink('https://t.me/PivomerGame_bot/PivomerGame?startapp=_tgr_Q9si5jU5YTM6');
+        
+        tg.showPopup({
+            title: "Успешно!",
+            message: "Вы были перенаправлены в бота. Нажмите START для получения награды.",
+            buttons: [{type: "ok"}]
         });
+    });
         
         tg.BackButton.onClick(() => {
             tg.close();
