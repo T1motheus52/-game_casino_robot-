@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Получить награду</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --tg-theme-bg-color: #0f0f0f;
+            --tg-theme-text-color: #ffffff;
+            --tg-theme-button-color: #40a7e3;
+            --tg-theme-button-text-color: #ffffff;
+            --tg-theme-secondary-bg-color: #1c1c1c;
+            --tg-theme-hint-color: #aaaaaa;
+            --tg-theme-link-color: #4eabe6;
+            --tg-theme-section-bg-color: #1c1c1c;
+            --tg-theme-section-header-text-color: #ffffff;
+            --animation-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #40a7e3 0%, #2e93d3 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 4px 20px rgba(64, 167, 227, 0.3);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--tg-theme-hint-color);
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background-color: var(--tg-theme-section-bg-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .reward-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .reward-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #ffcb49 0%, #ffa500 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 24px;
+        }
+
+        .reward-text {
+            flex: 1;
+        }
+
+        .reward-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffcb49;
+        }
+
+        .reward-description {
+            font-size: 14px;
+            color: var(--tg-theme-hint-color);
+        }
+
+        .instructions {
+            margin-bottom: 24px;
+        }
+
+        .instructions h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--tg-theme-section-header-text-color);
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background-color: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: var(--tg-theme-hint-color);
+        }
+
+        .action-button {
+            background-color: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            border: none;
+            border-radius: 10px;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all var(--animation-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .action-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .action-button:active {
+            transform: translateY(0);
+        }
+
+        .button-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            color: var(--tg-theme-hint-color);
+            font-size: 14px;
+        }
+
+        .telegram-logo {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #40a7e3 0%, #2e93d3 100%);
+            border-radius: 50%;
+            margin-right: 6px;
+            position: relative;
+            top: 4px;
+        }
+
+        .telegram-logo:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 4px;
+            width: 8px;
+            height: 6px;
+            background-color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 8px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🎰</div>
+            <h1>Получите бонусные битсы</h1>
+            <p class="subtitle">Выполните простое задание и получите награду</p>
+        </div>
+        
+        <div class="card">
+            <div class="reward-info">
+                <div class="reward-icon">💰</div>
+                <div class="reward-text">
+                    <div class="reward-amount">10,000 битсов</div>
+                    <div class="reward-description">Ваша награда за выполнение задания</div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3>Как получить награду:</h3>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Нажмите кнопку "Перейти" ниже</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Вы будете перенаправлены в бота</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Нажмите кнопку START в боте для получения награды</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-text">Награда будет зачислена на ваш баланс</div>
+                </div>
+            </div>
+            
+            <button class="action-button" id="go-button">
+                <span class="button-icon">🚀</span>
+                Перейти
+            </button>
+        </div>
+        
+        <div class="footer">
+            <span class="telegram-logo"></span> Мини-приложение для Telegram
+        </div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.enableClosingConfirmation();
+        
+        document.getElementById('go-button').addEventListener('click', function() {
+            tg.openTelegramLink('https://t.me/PivomerGame_bot?start=_tgr_Q9si5jU5YTM6');
+            
+            tg.showPopup({
+                title: "Успешно!",
+                message: "Вы были перенаправлены в бота. Нажмите START для получения награды.",
+                buttons: [{type: "ok"}]
+            });
+        });
+        
+        tg.BackButton.onClick(() => {
+            tg.close();
+        });
+    </script>
+</body>
+</html>
